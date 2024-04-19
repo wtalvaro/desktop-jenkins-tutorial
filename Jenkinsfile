@@ -1,9 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage ('inicial') {
+    stage ('build image') {
       steps {
-        echo 'Iniciando a pipeline.'
+        script {
+          dockerapp = docker.build('wtalvaro/desktop-jenkins-tutorial', '-f ./src/Dockerfile ./src')
+        }
       }
     }
   }
