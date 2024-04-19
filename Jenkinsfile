@@ -15,5 +15,12 @@ pipeline {
         dockerapp.push("${env.BUILD_ID}")
       }
     }
+    stage ('deploy kubernetes') {
+      steps {
+        withKubeConfig([credentialId:'kubeconfigF']){
+          sh 'kubectl apply -f ./k8s/deployment.yaml'
+        }
+      }
+    }
   }
 }
